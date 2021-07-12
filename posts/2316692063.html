@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>缓存 - 流殃的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="流殃的博客"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="流殃的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="经典的缓存架构"><meta property="og:type" content="blog"><meta property="og:title" content="殃の酱"><meta property="og:url" content="https://shyblog.world/"><meta property="og:site_name" content="殃の酱"><meta property="og:description" content="经典的缓存架构"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2021-03-22T13:14:41.000Z"><meta property="article:modified_time" content="2021-07-12T23:24:47.519Z"><meta property="article:author" content="sunheyi"><meta property="article:tag" content="缓存"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shyblog.world/posts/2316692063.html"},"headline":"流殃的博客","image":["https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210323211727262.png"],"datePublished":"2021-03-22T13:14:41.000Z","dateModified":"2021-07-12T23:24:47.519Z","author":{"@type":"Person","name":"流殃"},"description":"经典的缓存架构"}</script><link rel="canonical" href="https://shyblog.world/posts/2316692063.html"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><script async="" referrerpolicy="no-referrer" src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script src="/js/md5.min.js"></script><style type="text/css" lang="css">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end -->#loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="流殃的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body class="is-2-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">影音</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-03-22  <a class="commentCountImg" href="/posts/2316692063.html#comment-container"><span class="display-none-class">/posts/2316692063.html</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="d68a4f0c4a3e5f1a38f3dbf95e03bd3b">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>17 分钟  <i class="fas fa-pencil-alt"> </i>2.6 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">缓存</h1><div class="content"><h3 id="经典的缓存架构"><a href="#经典的缓存架构" class="headerlink" title="经典的缓存架构"></a>经典的缓存架构</h3><span id="more"></span>
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>可以支持百万流量的三级缓存</p>
+<p><img src="https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210323211727262.png" alt="image-20210323211727262"></p>
+<h3 id="cache-aside-pattern"><a href="#cache-aside-pattern" class="headerlink" title="cache aside pattern"></a>cache aside pattern</h3><ol>
+<li>读数据的时候，先读缓存，缓存没有的话，就读数据库，放入缓存，返回响应</li>
+<li>写数据的时候，先删除缓存，再更新数据库</li>
+</ol>
+<blockquote>
+<p>为什么是删除缓存，而不是更新缓存那？</p>
+<p>原因很简单，试想这么场景，数据频繁的被修改，那么缓存就也要不断的重新计算，这个计算是非常消耗资源的，而且你更新了这么多次缓存还不一定能用到，就有点得不偿失了，所以就有了先删除缓存，再更新数据的做法，这样就是减少了非常多次的缓存重新计算的工作量，而是用到了数据的时候，再从数据库中加载到缓存中</p>
+</blockquote>
+<h3 id="数据库和缓存双写问题"><a href="#数据库和缓存双写问题" class="headerlink" title="数据库和缓存双写问题"></a>数据库和缓存双写问题</h3><h4 id="初级"><a href="#初级" class="headerlink" title="初级"></a>初级</h4><p>先写数据库，后写缓存，如果写缓存失败，就会出现数据库和缓存不一致的情况</p>
+<blockquote>
+<p>解决方案：很简单，写数据的时候，先删除缓存，再更新数据库就可以了</p>
+<p>其实就是从两个操作失败的场景来分析就会明白了</p>
+<ol>
+<li>删除缓存失败，那么就会再次执行删除缓存的操作，可以自定义重试几次，删除换缓存失败的情况，缓存和数据库数据一直，删除缓存成功，会以数据库数据为主，将相应数据写入数据库，等到再次请求缓存，用到这个数据的时候，再将数据放入到缓存中</li>
+<li>更新数据库失败，更新数据库失败就会回滚，此时缓存中没有数据，以数据库的数据为主，无非就是多次重试执行sql，直到成功或者说规定重试几次，返回更新数据失败的提示</li>
+</ol>
+</blockquote>
+<h4 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h4><p>看完上面的解释，你是不是以为使用了先删除缓存，再写数据库的方式就可以避免数据库和缓存数据不一致的情况，我在这里告诉你，不是的！</p>
+<p>有一种场景，在一个线程删除缓存成功，准备将数据写数据库的时候，此时另外一个线程来请求这个数据，发现缓存中没有，直接去请求数据库，将数据库的数据读入到了缓存中，然后第一个线程才将数据写入数据库，此时缓存和数据库的数据出现了不一致的情况，数据库中是最新的数据，而缓存中是原来的数据。你以为已经给它删除了，但是如果一个线程出现上述这场景，就和没有删除的情况一样，仍然出现了缓存和数据库数据不一致的问题</p>
+<blockquote>
+<p>解决方案：</p>
+<p>数据库与缓存更新与读取操作进行异步串行化</p>
+<p>更新数据的时候，根据数据的唯一标识，将操作路由之后，发送一个jvm内部的队列中</p>
+<p>读取数据的时候，如果发现数据不在缓存中，那么将重新拉取数据+更新缓存的造作，根据唯一标识路由之后，也发送同一个jvm内部的队列中</p>
+<p>一个队列对应一个工作线程</p>
+<p>每个工作线程串行拿到对应的操作，然后一条一条的执行选择的话，一个数据变更的操作，先执行，删除缓存，然后再去更新数据库，但是还米有完成更新</p>
+<p>此时如果一个读请求过来，读到了空的缓存，那么可以优先将缓存更新的请求发送到队列中，此时会在队列中积压，然后同步等待缓存更新完成</p>
+<p>这有有一个优化的点，一个队列中，其实多个更新缓存请求串在一个是没有意义的，因此可以做过滤，如果发现队列中已经有一个更新缓存的队列了，那么就不用再放一个更新的操作了，直接等待前面的更新操作完成</p>
+<p>待那个队列对应的工作线程完成了上一个操作的数据的数据库的修改之后，才会去执行下一个操作，此时会从数据库获取最新的值，然后写入缓存，如果请求还在等待时间范围，不断轮询可以发现可以直接取到值了，那么直接返回；如果请求等待的时间超过一定时长，那么这一次直接从数据库中读取当前的值</p>
+</blockquote>
+<p>​    </p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>在进阶中的方案仍然有有一些问题需要实际考虑</p>
+<p>由于读请求进行了非常轻度的异步化，所以一定要注意超时时间的问题，每个读请求必须在超时时间内返回</p>
+<p>该解决方案最大的风险点在于，可能数据更新很频繁，导致队列中积压了大量更新操作在里面，然后读请求会发生大量的超时，最后导致大量的请求直接走数据库</p>
+<p>务必通过一些模拟真实的测试，看看更新数据的频繁是怎样的</p>
+<p>另外一点，因为在 一个队列中，可能会积压针对多个数据项的更新操作，因此要根据自己的业务情况进行测试，可能需要部署多个服务，每个服务分摊一些数据更新的操作，如果一个内存队列里居然会积压100个商品的库存修改操作，每个库存修改都要豪飞10ms完成，那么最后一个商品的去请求，可能要等待1s，这个时候就导致读请求长时间的阻塞</p>
+<p>一定要根据实际业务系统的运行情况，去做一些压力测试，和模拟线上环境，去看看罪犯满给的时候，内存队列可能会挤压多少更新操作，如果读请求在200ms内返回，那还是可以接受的</p>
+<p>如果一个内存队列中可挤压的更新操作特别多，那么你就要加机器，让每个机器上部署的服务实例处理更少的机器，那么就会提高读请求的响应时间</p>
+<p>其实根据之前的项目经验，一般数据的写频率都是很低的，因此实际上正常来说，在队列中积压的更新操作应该是很少的</p>
+<h4 id="多实例部署的请求路由"><a href="#多实例部署的请求路由" class="headerlink" title="多实例部署的请求路由"></a>多实例部署的请求路由</h4><p>可能这个服务部署了多个实例，那么必须保证说，执行数据更新操作，以及执行缓存更新操作的请求，都通过nginx服务器路由到相同的服务实例上</p>
+<h4 id="热点商品问题，导致请求的倾斜"><a href="#热点商品问题，导致请求的倾斜" class="headerlink" title="热点商品问题，导致请求的倾斜"></a>热点商品问题，导致请求的倾斜</h4><p>对某一个商品的请求特别高，全部请求到相同机器的相同的队列去了，可能会造成某台机器压力过大</p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>缓存雪崩这种场景，在缓存架构中是非常重要的一个环节，应对缓存雪崩的解决方案，避免缓存雪崩的时候，造成整个系统崩溃，带来巨大的经济损失</p>
+<ol>
+<li>redis集群彻底崩溃</li>
+<li>缓存服务大龄对redis的请求hang主，占用资源</li>
+<li>缓存服务大量的骑牛打到源头服务去查mysql，直接打死mysql</li>
+<li>源头服务因为mysql被打死也崩溃，对原服务的请求也hang主，占用资源</li>
+<li>缓存服务大量的资源全部耗费访问redis和源服务无果，最后自己被拖死，无法提供服务</li>
+<li>ng无法访问缓存服务，redis和源服务，只能基于本地缓存提供服务，但是缓存过期后，没有数据提供</li>
+<li>网站崩溃</li>
+</ol>
+<h4 id="事前"><a href="#事前" class="headerlink" title="事前"></a>事前</h4><p>redis本身的高可用性，主从架构</p>
+<p>建议双机房部署，可以是一套redis cluster，不同机器的，也可以是不同的redis cluster，两套redis cluster之间做一个数据同步，redis集群是可以搭建成树状结构的</p>
+<h4 id="事中"><a href="#事中" class="headerlink" title="事中"></a>事中</h4><h5 id="ehcache本地缓存"><a href="#ehcache本地缓存" class="headerlink" title="ehcache本地缓存"></a>ehcache本地缓存</h5><p>主要是为了应对redis中的数据被清除的现象和预防redis彻底崩溃</p>
+<p>多台机器上部署的缓存服务实例的内存中，还有要ehcache的缓存</p>
+<p>ehcache还能支撑一阵子</p>
+<h5 id="对redis访问的资源隔离"><a href="#对redis访问的资源隔离" class="headerlink" title="对redis访问的资源隔离"></a>对redis访问的资源隔离</h5><p>目的：为了避免所有资源hang在redis上</p>
+<p>对redis cluster访问失败的情况，做下熔断策略</p>
+<p>什么时候判断redis死了，就自动给他熔断，部署redis cluster的降级策略</p>
+<blockquote>
+<p>降级机制: fallback</p>
+<p>fail silent模式，failback里面直接返回一个空值，比如一个null，最简单了</p>
+</blockquote>
+<h5 id="对源服务访问的限流以及资源隔离"><a href="#对源服务访问的限流以及资源隔离" class="headerlink" title="对源服务访问的限流以及资源隔离"></a>对源服务访问的限流以及资源隔离</h5><p>资源隔离：限制访问商品服务的资源，避免商品故障的时候，所有资源都在访问该商品</p>
+<p>目的：为了源头服务在mysql死掉的情况下，可以存活一阵</p>
+<h4 id="事后"><a href="#事后" class="headerlink" title="事后"></a>事后</h4><h5 id="redis做了备份"><a href="#redis做了备份" class="headerlink" title="redis做了备份"></a>redis做了备份</h5><p>redis数据做了备份，直接根据redis的持久化策略来恢复数据</p>
+<h5 id="快速缓存预约"><a href="#快速缓存预约" class="headerlink" title="快速缓存预约"></a>快速缓存预约</h5><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>其实很简单，就是你查询的数据，多级缓存中都没有，大量的数据都直接走到了数据库，容易导致数据库崩溃</p>
+<h3 id="缓存一致性"><a href="#缓存一致性" class="headerlink" title="缓存一致性"></a>缓存一致性</h3></div><div class="article-licensing box"><div class="licensing-title"><p>缓存</p><p><a href="https://shyblog.world/posts/2316692063.html">https://shyblog.world/posts/2316692063.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="https://shyblog.world"><p>流殃</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-03-22</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-07-13</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/posts/3668139362.html" target="_blank">情绪自由</a><br></span><span>  2.<a class="is-size-6" href="/posts/3513846333.html" target="_blank">java的构造函数</a><br></span><span>  3.<a class="is-size-6" href="/posts/4049607742.html" target="_blank">单例模式</a><br></span><span>  4.<a class="is-size-6" href="/posts/4110889468.html" target="_blank">开闭原则</a><br></span><span>  5.<a class="is-size-6" href="/posts/2321636764.html" target="_blank">几种通信方式的区别和联系</a><br></span><span>  6.<a class="is-size-6" href="/posts/3956989639.html" target="_blank">迪米特法则</a><br></span><span>  7.<a class="is-size-6" href="/posts/3773597826.html" target="_blank">接口隔离原则</a><br></span><span>  8.<a class="is-size-6" href="/posts/2819424305.html" target="_blank">动态规划</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/3948463409.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">mysql执行流程</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/4202801640.html"><span class="level-item">vagrant使用</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div class="content" id="comment-container"></div><script>var valine = new Valine({
+            el: '#comment-container' ,
+            notify: false,
+            verify: false,
+            appId: 'jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va',
+            appKey: 'DDgwN2gmiGGXUYEDLSlPhI1a',
+            placeholder: '留下您的高见！',
+            avatar: 'mp',
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            visitor: true,
+            highlight: true,
+            recordIP: false,
+            path:'/posts/2316692063.html',
+            lang:'zh-CN',
+            enableQQ:true,
+            requiredFields:["nick","mail","link"]
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#经典的缓存架构"><span class="mr-2">1</span><span>经典的缓存架构</span></a></li><li><a class="is-flex is-mobile" href="#cache-aside-pattern"><span class="mr-2">2</span><span>cache aside pattern</span></a></li><li><a class="is-flex is-mobile" href="#数据库和缓存双写问题"><span class="mr-2">3</span><span>数据库和缓存双写问题</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#初级"><span class="mr-2">3.1</span><span>初级</span></a></li><li><a class="is-flex is-mobile" href="#进阶"><span class="mr-2">3.2</span><span>进阶</span></a></li><li><a class="is-flex is-mobile" href="#注意"><span class="mr-2">3.3</span><span>注意</span></a></li><li><a class="is-flex is-mobile" href="#多实例部署的请求路由"><span class="mr-2">3.4</span><span>多实例部署的请求路由</span></a></li><li><a class="is-flex is-mobile" href="#热点商品问题，导致请求的倾斜"><span class="mr-2">3.5</span><span>热点商品问题，导致请求的倾斜</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#缓存雪崩"><span class="mr-2">4</span><span>缓存雪崩</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#事前"><span class="mr-2">4.1</span><span>事前</span></a></li><li><a class="is-flex is-mobile" href="#事中"><span class="mr-2">4.2</span><span>事中</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#ehcache本地缓存"><span class="mr-2">4.2.1</span><span>ehcache本地缓存</span></a></li><li><a class="is-flex is-mobile" href="#对redis访问的资源隔离"><span class="mr-2">4.2.2</span><span>对redis访问的资源隔离</span></a></li><li><a class="is-flex is-mobile" href="#对源服务访问的限流以及资源隔离"><span class="mr-2">4.2.3</span><span>对源服务访问的限流以及资源隔离</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#事后"><span class="mr-2">4.3</span><span>事后</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#redis做了备份"><span class="mr-2">4.3.1</span><span>redis做了备份</span></a></li><li><a class="is-flex is-mobile" href="#快速缓存预约"><span class="mr-2">4.3.2</span><span>快速缓存预约</span></a></li></ul></li></ul></li><li><a class="is-flex is-mobile" href="#缓存穿透"><span class="mr-2">5</span><span>缓存穿透</span></a></li><li><a class="is-flex is-mobile" href="#缓存一致性"><span class="mr-2">6</span><span>缓存一致性</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a><p class="size-small"><span>&copy; 2021 流殃</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2020/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

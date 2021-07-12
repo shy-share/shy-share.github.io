@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>对于学历造假问题的思考 - 流殃的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="流殃的博客"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="流殃的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="今天在地铁上刷脉脉的时候，发现脉脉热点第一的话题就是这个，看了下面的各种评论，我有些认同，有些不认同，各种思维在我的脑海中不停的碰撞，所以我决定写下这篇文章来总结我的观点。"><meta property="og:type" content="blog"><meta property="og:title" content="殃の酱"><meta property="og:url" content="https://shyblog.world/"><meta property="og:site_name" content="殃の酱"><meta property="og:description" content="今天在地铁上刷脉脉的时候，发现脉脉热点第一的话题就是这个，看了下面的各种评论，我有些认同，有些不认同，各种思维在我的脑海中不停的碰撞，所以我决定写下这篇文章来总结我的观点。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2021-04-23T05:58:45.000Z"><meta property="article:modified_time" content="2021-07-12T23:24:47.519Z"><meta property="article:author" content="sunheyi"><meta property="article:tag" content="闲聊"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shyblog.world/posts/2367700560.html"},"headline":"流殃的博客","image":["https://shyblog.world/img/og_image.png"],"datePublished":"2021-04-23T05:58:45.000Z","dateModified":"2021-07-12T23:24:47.519Z","author":{"@type":"Person","name":"流殃"},"description":"今天在地铁上刷脉脉的时候，发现脉脉热点第一的话题就是这个，看了下面的各种评论，我有些认同，有些不认同，各种思维在我的脑海中不停的碰撞，所以我决定写下这篇文章来总结我的观点。"}</script><link rel="canonical" href="https://shyblog.world/posts/2367700560.html"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><script async="" referrerpolicy="no-referrer" src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script src="/js/md5.min.js"></script><style type="text/css" lang="css">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end -->#loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="流殃的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body class="is-2-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">影音</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-04-23  <a class="commentCountImg" href="/posts/2367700560.html#comment-container"><span class="display-none-class">/posts/2367700560.html</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="45949f59b27f7ac8aa268237db0bcdad">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>12 分钟  <i class="fas fa-pencil-alt"> </i>1.8 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">对于学历造假问题的思考</h1><div class="content"><p>今天在地铁上刷脉脉的时候，发现脉脉热点第一的话题就是这个，看了下面的各种评论，我有些认同，有些不认同，各种思维在我的脑海中不停的碰撞，所以我决定写下这篇文章来总结我的观点。</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><span id="more"></span>
+
+<p>下面我从下面几点进行讨论。</p>
+<h3 id="学历"><a href="#学历" class="headerlink" title="学历"></a>学历</h3><p>首先我们来思考一下</p>
+<p>学历是什么？</p>
+<p>学历是我们从哪所学校毕业的证明，是我们入职公司所必须要的一个东西。</p>
+<p>学历可以证明什么？</p>
+<p>我认为学历是你过去在上学阶段的重要成果，可以证明你在过去的二十几年里，学习能力非常出色，理解能力很到位，从而可以在优秀的学校毕业。</p>
+<p>那么问题来了，学历低或者甚至没有学历的同学，是否所有的人都是智商不行？是否所有的人都是学习能力不行？是否所有的人理解能力都很差，高学历就可以学会，而低学历却需要两三遍。</p>
+<p>不是的，事实上，只是从概率来说，是从好学校毕业的学生整体素质比其他学校的高而已，仅此而已。</p>
+<h3 id="企业"><a href="#企业" class="headerlink" title="企业"></a>企业</h3><p>首先要思考的是，企业招聘人员的目的在哪里？毫无疑问，肯定是要帮助企业成长的人才。那么什么才算是人才那？在社会普遍认知来说，在学历高的人群中，优秀的人才相对来说概率更大。事实上也确实是如此，那么企业是否要把高学历作为招聘人才时候的唯一标准那？</p>
+<p>这个当然不对，因为这样的话，就表示了你传递了一个价值观，就是我只招聘那些在学生时代付出过努力并取得优秀结果的同学，这样就否认了人在工作时代的努力。</p>
+<p>但是这就存在一个问题，就是如果企业我放开学历要求，那么招聘成本会急剧上升，一个企业招收的人也不多，可能一年光985毕业的学生都招收不过来，又怎么会要你低学历的人那？</p>
+<p>其实我想了一个折中方案，就是你如果确实对学校有要求，那么你可以写  比如  985,211学校优先，这个是一个加分点，但是不是一个必要条件，这样就既减少了招聘成本，又尊重了个人工作之后的努力。</p>
+<p>所以，最终企业招人是有以下三个选择的</p>
+<ol>
+<li>将高学历作为招聘人才的最低要求，硬性条件，不可跨越。这个选择相对来说招聘成本最低</li>
+<li>将高学历作为招聘人才的加分项，而不是必要条件</li>
+<li>不限制学历，一切以面试结果为准</li>
+</ol>
+<h3 id="造假"><a href="#造假" class="headerlink" title="造假"></a>造假</h3><p>其实我在脉脉上还看到一个种言论，就是说  他如果简历都能造假，那他工作之后那，如果还有许多类似的行为，要如果处理？</p>
+<p>其实我想说，这种言论，上刚上线，下面我们一条一条来分析。</p>
+<ol>
+<li>首先，这个简历造假肯定是个不诚信的行为，这没有什么好说的，但是这没有必要上升到攻击人的层面</li>
+<li>这个其实也是社会形式所逼迫的，因为很多公司你如果不学历造假，就没有面试的机会</li>
+</ol>
+<h3 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h3><p>有人说，面试的并不能证明能力，只能证明他背得多，学习的多，但是工作中不一定可以。</p>
+<p>针对这种言论，我想说，那他起码愿意花时间在这个上面，对于这个面试有足够的重视，那么我就有理由相信他的实践能力。</p>
+<blockquote>
+<p>通过面试一般来说是可以看出能力的，但是这也考验面试管的水平，因为如果面试官只是对理论知识进行提问，而忽视了实践环节，那么确实有很大可能会出现  面试可以，但是工作的时候却很差劲。</p>
+</blockquote>
+<h3 id="人性"><a href="#人性" class="headerlink" title="人性"></a>人性</h3><p>在脉脉上还有一种言论是 那些成天把985 211挂在嘴上的人，其实都是为了夯实一道围墙，为了让自己的行业加上门槛，好让自己活的更加舒服，不用那么卷？</p>
+<p>看到这个言论的时候，我很赞同。原因如下：</p>
+<p>经常把自己的学校挂在嘴边的，一般都是不太自信的人，或者说是想要以此来形成自己的护城河的人，他和普通学校毕业的人的关系有点像资本家和打工人的关系。</p>
+<p>资本家总是想榨干打工人的剩余价值，让打工人辛辛苦苦的加班，熬夜，就是为了给资本家买车买房，成为一个亿万富翁。资本家这种行为的其实也是想要为自己增加护城河，最终目的就是不要让我的员工之后和我一样有钱，优秀。但是这其实并不是资本家的主要目的，资本家的主要目的就是盈利，也就是俗称的赚钱。 所以说这种资本家给自己添加护城河的言论，并不真实，而是一种资本家主要目的的一个附加的结果。</p>
+<blockquote>
+<p>为什么说是一个附件的结果那？</p>
+<p>很简单， 因为如果你每天的时间都在工作上面，那么你就不会时间来提升自己，那也就是说 你的市场竞争力在不断的下降，从而将来会面对，一旦一离开这家公司，可能就比较难找工作，当然如果你的业务有非常多优秀的地方，也是可以的，但是这仍然是需要你去总结和消化的，而不是做过了，就忘记了</p>
+</blockquote>
+<p>还有人说，我要是一个二本毕业的，去了一个都是985毕业的公司，我一定会好好努力，要是去了都是专科毕业的公司，就直接走了。</p>
+<p>这其实也是有问题的，就是说你的思维定性了，认为学校好的就是什么都好，而学校不好的则都不好。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>对于学历造假问题的思考</p><p><a href="https://shyblog.world/posts/2367700560.html">https://shyblog.world/posts/2367700560.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="https://shyblog.world"><p>流殃</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-04-23</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-07-13</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/posts/3668139362.html" target="_blank">情绪自由</a><br></span><span>  2.<a class="is-size-6" href="/posts/3513846333.html" target="_blank">java的构造函数</a><br></span><span>  3.<a class="is-size-6" href="/posts/4049607742.html" target="_blank">单例模式</a><br></span><span>  4.<a class="is-size-6" href="/posts/4110889468.html" target="_blank">开闭原则</a><br></span><span>  5.<a class="is-size-6" href="/posts/2321636764.html" target="_blank">几种通信方式的区别和联系</a><br></span><span>  6.<a class="is-size-6" href="/posts/3956989639.html" target="_blank">迪米特法则</a><br></span><span>  7.<a class="is-size-6" href="/posts/3773597826.html" target="_blank">接口隔离原则</a><br></span><span>  8.<a class="is-size-6" href="/posts/2819424305.html" target="_blank">动态规划</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/3588975288.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">redis的string类型</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/3750237992.html"><span class="level-item">icarus Theme use</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div class="content" id="comment-container"></div><script>var valine = new Valine({
+            el: '#comment-container' ,
+            notify: false,
+            verify: false,
+            appId: 'jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va',
+            appKey: 'DDgwN2gmiGGXUYEDLSlPhI1a',
+            placeholder: '留下您的高见！',
+            avatar: 'mp',
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            visitor: true,
+            highlight: true,
+            recordIP: false,
+            path:'/posts/2367700560.html',
+            lang:'zh-CN',
+            enableQQ:true,
+            requiredFields:["nick","mail","link"]
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#学历"><span class="mr-2">1</span><span>学历</span></a></li><li><a class="is-flex is-mobile" href="#企业"><span class="mr-2">2</span><span>企业</span></a></li><li><a class="is-flex is-mobile" href="#造假"><span class="mr-2">3</span><span>造假</span></a></li><li><a class="is-flex is-mobile" href="#能力"><span class="mr-2">4</span><span>能力</span></a></li><li><a class="is-flex is-mobile" href="#人性"><span class="mr-2">5</span><span>人性</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a><p class="size-small"><span>&copy; 2021 流殃</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2020/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

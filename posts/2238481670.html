@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>java_String - 流殃的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="流殃的博客"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="流殃的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="string类型的介绍"><meta property="og:type" content="blog"><meta property="og:title" content="殃の酱"><meta property="og:url" content="https://shyblog.world/"><meta property="og:site_name" content="殃の酱"><meta property="og:description" content="string类型的介绍"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2021-04-29T13:53:20.000Z"><meta property="article:modified_time" content="2021-07-12T23:24:47.519Z"><meta property="article:author" content="sunheyi"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://shyblog.world/posts/2238481670.html"},"headline":"流殃的博客","image":["https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210429215615889.png","https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210429215539166.png"],"datePublished":"2021-04-29T13:53:20.000Z","dateModified":"2021-07-12T23:24:47.519Z","author":{"@type":"Person","name":"流殃"},"description":"string类型的介绍"}</script><link rel="canonical" href="https://shyblog.world/posts/2238481670.html"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><script async="" referrerpolicy="no-referrer" src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="//unpkg.com/valine/dist/Valine.min.js"></script><script src="/js/md5.min.js"></script><style type="text/css" lang="css">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end -->#loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+    
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+    
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+    
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+    
+   
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },1000); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+ </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="流殃的博客" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head><body class="is-2-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/album">相册</a><a class="navbar-item" href="/friend">友链</a><a class="navbar-item" href="/message">留言</a><a class="navbar-item" href="/self-talking">碎碎念</a><a class="navbar-item" href="/music">Music</a><a class="navbar-item" href="/media">影音</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-04-29  <a class="commentCountImg" href="/posts/2238481670.html#comment-container"><span class="display-none-class">/posts/2238481670.html</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="dec2d79cf911e9a313903a8ce249e03c">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>17 分钟  <i class="fas fa-pencil-alt"> </i>2.6 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">java_String</h1><div class="content"><p>string类型的介绍</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><span id="more"></span>
+
+<h1 id="string"><a href="#string" class="headerlink" title="string"></a>string</h1><h2 id="不可变性"><a href="#不可变性" class="headerlink" title="不可变性"></a>不可变性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于是final，所以string是不可继承的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line">//final修饰的char[]代表了被存储的数据不可更改性</span><br><span class="line"><span class="comment">//是final和private</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"><span class="comment">//下面这个例子说明，是final和private一起来使得String的数据是不可改变的</span></span><br><span class="line"><span class="keyword">final</span>  <span class="keyword">int</span>[] array=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">array[<span class="number">2</span>]=<span class="number">100</span>;</span><br><span class="line">System.out.println(array[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><ol>
+<li>只有String是不可改变的，字符串池才有可能实现</li>
+<li>如果字符串是可变的，会引发线程安全的问题</li>
+</ol>
+<h2 id="长度限制"><a href="#长度限制" class="headerlink" title="长度限制"></a>长度限制</h2><p>由于stirng其实就是一个char数组</p>
+<p>char数组的下标是整型，integer</p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020381075">https://segmentfault.com/a/1190000020381075</a></p>
+<h2 id="三种常量池区分"><a href="#三种常量池区分" class="headerlink" title="三种常量池区分"></a>三种常量池区分</h2><h3 id="全局常量池"><a href="#全局常量池" class="headerlink" title="全局常量池"></a>全局常量池</h3><p>全局字符串池里的内容是在类加载完成，经过验证，准备阶段之后在堆中生成字符串对象实例，然后将该字符串对象实例的引用值存到string pool中（<strong>记住：string pool中存的是引用值而不是具体的实例对象，具体的实例对象是在堆中开辟的一块空间存放的。</strong>）。 在HotSpot VM里实现的string pool功能的是一个StringTable类，它是一个哈希表，里面存的是驻留字符串(也就是我们常说的用双引号括起来的)的引用（而不是驻留字符串实例本身），也就是说在堆中的某些字符串实例被这个StringTable引用之后就等同被赋予了”驻留字符串”的身份。这个StringTable在每个HotSpot VM的实例只有一份，被所有的类共享。</p>
+<h3 id="class文件常量池"><a href="#class文件常量池" class="headerlink" title="class文件常量池"></a>class文件常量池</h3><p>我们都知道，class文件中除了包含类的版本、字段、方法、接口等描述信息外，还有一项信息就是常量池(constant pool table)，用于存放编译器生成的**各种字面量(Literal)和符号引用(Symbolic References)**。 字面量就是我们所说的常量概念，如文本字符串、被声明为final的常量值等。 符号引用是一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可（它与直接引用区分一下，直接引用一般是指向方法区的本地指针，相对偏移量或是一个能间接定位到目标的句柄）。一般包括下面三类常量：</p>
+<ul>
+<li>类和接口的全限定名</li>
+<li>字段的名称和描述符</li>
+<li>方法的名称和描述符</li>
+</ul>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>当java文件被编译成class文件之后，也就是会生成我上面所说的class常量池，那么运行时常量池又是什么时候产生的呢？</p>
+<p>jvm在执行某个类的时候，必须经过<strong>加载、连接、初始化</strong>，而连接又包括验证、准备、解析三个阶段。而当类加载到内存中后，jvm就会将class常量池中的内容存放到运行时常量池中，由此可知，运行时常量池也是每个类都有一个。在上面我也说了，class常量池中存的是字面量和符号引用，也就是说他们存的并不是对象的实例，而是对象的符号引用值。而经过解析（resolve）之后，也就是把符号引用替换为直接引用，解析的过程会去查询全局字符串池，也就是我们上面所说的StringTable，以保证运行时常量池所引用的字符串与全局字符串池中所引用的是一致的。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1.全局常量池在每个VM中只有一份，存放的是字符串常量的引用值。</p>
+<p>2.class常量池是在编译的时候每个class都有的，在编译阶段，存放的是常量的符号引用。</p>
+<p>3.运行时常量池是在类加载完成之后，将每个class常量池中的符号引用值转存到运行时常量池中，也就是说，每个class都有一个运行时常量池，类在解析之后，将符号引用替换成直接引用，与全局常量池中的引用值保持一致。</p>
+<h2 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h2><p><a target="_blank" rel="noopener" href="https://www.hollischuang.com/archives/1232">https://www.hollischuang.com/archives/1232</a></p>
+<p>jdk6和jdk7之后的差别</p>
+<h3 id="jdk6"><a href="#jdk6" class="headerlink" title="jdk6"></a>jdk6</h3><p>jdk6的时候，当截取字符串的时候，会在堆中new 一个新的string对象，但是这个string对象使用的char数组还是之前的数组，如果你只是在很长的字符串中引用了很小的一块数据，但是由于这个char数组是有引用的，所以无法进行垃圾回收，但是由于你所使用的字符串只是很小的一部分，但是你却用了这么大的char数组，会导致好像那么一大空间不存在似的，这就产生了内存泄露的问题。</p>
+<p>内存泄露：在计算机科学中，内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。 内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。</p>
+<h3 id="jdk7"><a href="#jdk7" class="headerlink" title="jdk7"></a>jdk7</h3><p>既然已经知道了上述问题所在，那么只需要new一个新的string的时候，让这个string指向自己的包含的char数组即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (offset &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(offset);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (count &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (count &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(count);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (offset &lt;= value.length) &#123;</span><br><span class="line">            <span class="keyword">this</span>.value = <span class="string">&quot;&quot;</span>.value;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Note: offset or count might be near -1&gt;&gt;&gt;1.</span></span><br><span class="line">    <span class="keyword">if</span> (offset &gt; value.length - count) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(offset + count);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//就是在这里将char数组拷贝过来，截取的offset和截取字符串的值是一样的</span></span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOfRange(value, offset, offset+count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="replaceFirst、replaceAll、replace区别"><a href="#replaceFirst、replaceAll、replace区别" class="headerlink" title="replaceFirst、replaceAll、replace区别"></a>replaceFirst、replaceAll、replace区别</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceFirst</span><span class="params">(String regex, String replacement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(regex).matcher(<span class="keyword">this</span>).replaceFirst(replacement);</span><br><span class="line">&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceAll</span><span class="params">(String regex, String replacement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(regex).matcher(<span class="keyword">this</span>).replaceAll(replacement);</span><br><span class="line">&#125; </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replace</span><span class="params">(CharSequence target, CharSequence replacement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Pattern.compile(target.toString(), Pattern.LITERAL).matcher(</span><br><span class="line">            <span class="keyword">this</span>).replaceAll(Matcher.quoteReplacement(replacement.toString()));</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>replaceFirst的作用是让regex去replacement替换原有string的第一个字符</p>
+<p>replaceAll的作用是replacement替换regex</p>
+<p>replace的作用是将原有字符串的所有target替换为repalcement</p>
+<h2 id="String、StringBuilder和StingBuffer之间的区别与联系"><a href="#String、StringBuilder和StingBuffer之间的区别与联系" class="headerlink" title="String、StringBuilder和StingBuffer之间的区别与联系"></a>String、StringBuilder和StingBuffer之间的区别与联系</h2><h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(<span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(capacity);</span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">StringBuilder</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(str.length() + <span class="number">16</span>);</span><br><span class="line">    append(str);</span><br><span class="line">&#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">append</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> append(String.valueOf(obj));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.append(str);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>从源码可以看出，默认的stringbuilder是16个字节，如果指定了大小就用指定的大小，如果直接给了个参数就是字符串的长度加上16个字节</p>
+<p>方法中没有synchronized，所以这是线程不安全的</p>
+<h3 id="StingBuffer"><a href="#StingBuffer" class="headerlink" title="StingBuffer"></a>StingBuffer</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value.length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> minimumCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.ensureCapacity(minimumCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法都是synchronized修饰的，所以是线程安全的</p>
+<h2 id="String对“-”的重载"><a href="#String对“-”的重载" class="headerlink" title="String对“+”的重载"></a>String对“+”的重载</h2><p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844903960608784392">https://juejin.im/post/6844903960608784392</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;1&quot;</span>;</span><br><span class="line">        String b = <span class="string">&quot;2&quot;</span>;</span><br><span class="line">        System.out.println(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210429215615889.png" alt="image-20210429215615889"></p>
+<p>从反编译的过程可以看出，是调用了stringbuilder的append方法，</p>
+<h2 id="String-valueOf和Integer-toString的区别"><a href="#String-valueOf和Integer-toString的区别" class="headerlink" title="String.valueOf和Integer.toString的区别"></a>String.valueOf和Integer.toString的区别</h2><p>stirng</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//stirng不能为null，为null会报NullPointerException</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这个方法的功能就是如果形参是null，那么返回null字符串，而不是直接报NullPointerException异常</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">valueOf</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (obj == <span class="keyword">null</span>) ? <span class="string">&quot;null&quot;</span> : obj.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>integer</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (radix &lt; Character.MIN_RADIX || radix &gt; Character.MAX_RADIX)</span><br><span class="line">        radix = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Use the faster version */</span></span><br><span class="line">    <span class="keyword">if</span> (radix == <span class="number">10</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> toString(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buf[] = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">33</span>];</span><br><span class="line">    <span class="keyword">boolean</span> negative = (i &lt; <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> charPos = <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!negative) &#123;</span><br><span class="line">        i = -i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= -radix) &#123;</span><br><span class="line">        buf[charPos--] = digits[-(i % radix)];</span><br><span class="line">        i = i / radix;</span><br><span class="line">    &#125;</span><br><span class="line">    buf[charPos] = digits[-i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (negative) &#123;</span><br><span class="line">        buf[--charPos] = <span class="string">&#x27;-&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(buf, charPos, (<span class="number">33</span> - charPos));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="switch对String的支持"><a href="#switch对String的支持" class="headerlink" title="switch对String的支持"></a>switch对String的支持</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        <span class="keyword">switch</span> (str) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;hello&quot;</span>:</span><br><span class="line">                System.out.println(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;world&quot;</span>:</span><br><span class="line">                System.out.println(<span class="string">&quot;world&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反编译</p>
+<p><img src="https://gitee.com/flow_disaster/blog-map-bed/raw/master/img/image-20210429215539166.png" alt="image-20210429215539166"></p>
+<p>由反编译的代码可以看出来，switch中的case是通过hashCode来进行匹配的，使用equals方法来进行值的比较</p>
+<h2 id="字符串池"><a href="#字符串池" class="headerlink" title="字符串池"></a>字符串池</h2><h2 id="intern"><a href="#intern" class="headerlink" title="intern"></a>intern</h2><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2014/03/06/in-depth-understanding-string-intern.html">美团对于这个关键字的分析</a></p>
+<h2 id="String比较特别的地方"><a href="#String比较特别的地方" class="headerlink" title="String比较特别的地方"></a><strong>String比较特别的地方</strong></h2><ol>
+<li>直接中双引号引起来的，是放在常量池中，如代码所示String s2=”1”;</li>
+<li>如果不是用双引号声明的String对象，可以使用String提供的intern方法。intern 方法会从字符串常量池中查询当前字符串是否存在，若不存在就会将当前字符串放入常量池中</li>
+</ol>
+<p>实际例子验证：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s=<span class="string">&quot;1&quot;</span>;</span><br><span class="line">        String s1=<span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        String s2=s.intern();</span><br><span class="line">        System.out.println(s==s1);</span><br><span class="line">        System.out.println(s1==s2);</span><br><span class="line">        System.out.println(s2==s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：false false true</p>
+<p>jdk7之后，intern方法对 intern 操作和常量池都做了一定的修改。主要包括2点：</p>
+<ol>
+<li>将String常量池 从 Perm 区移动到了 Java Heap区</li>
+<li>String#intern 方法时，如果存在堆中的对象，会直接保存对象的引用，而不会重新创建对象。</li>
+</ol>
+<p>由上图代码及运行结果可以看出，双引号的的String是直接在常量池中的，而new出来的对象是在堆中的，当s2调用intern的方法之后，会去常量池中查找是否有这变量，如果有的话会直接引用常量池中的对象</p>
+<h2 id="转换为String的三种方式"><a href="#转换为String的三种方式" class="headerlink" title="转换为String的三种方式"></a>转换为String的三种方式</h2><ul>
+<li>(string)</li>
+<li>toString</li>
+<li>String.valueOf()</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/itmyhome1990/article/details/77879653">三种方式的区别</a></p>
+<p>推荐使用 String.valueOf()的方法，这个方法可以避免强转时候对象不能转换为String的错误，也可以避免toString的时候对象为null的情况</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>java_String</p><p><a href="https://shyblog.world/posts/2238481670.html">https://shyblog.world/posts/2238481670.html</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="https://shyblog.world"><p>流殃</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-04-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-07-13</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/posts/3668139362.html" target="_blank">情绪自由</a><br></span><span>  2.<a class="is-size-6" href="/posts/3513846333.html" target="_blank">java的构造函数</a><br></span><span>  3.<a class="is-size-6" href="/posts/4049607742.html" target="_blank">单例模式</a><br></span><span>  4.<a class="is-size-6" href="/posts/4110889468.html" target="_blank">开闭原则</a><br></span><span>  5.<a class="is-size-6" href="/posts/2321636764.html" target="_blank">几种通信方式的区别和联系</a><br></span><span>  6.<a class="is-size-6" href="/posts/3956989639.html" target="_blank">迪米特法则</a><br></span><span>  7.<a class="is-size-6" href="/posts/3773597826.html" target="_blank">接口隔离原则</a><br></span><span>  8.<a class="is-size-6" href="/posts/2819424305.html" target="_blank">动态规划</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/posts/4171019779.html"><i class="level-item fas fa-chevron-left"></i><span class="level-item">红黑树</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/posts/345102264.html"><span class="level-item">java面试题</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div class="content" id="comment-container"></div><script>var valine = new Valine({
+            el: '#comment-container' ,
+            notify: false,
+            verify: false,
+            appId: 'jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va',
+            appKey: 'DDgwN2gmiGGXUYEDLSlPhI1a',
+            placeholder: '留下您的高见！',
+            avatar: 'mp',
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            visitor: true,
+            highlight: true,
+            recordIP: false,
+            path:'/posts/2238481670.html',
+            lang:'zh-CN',
+            enableQQ:true,
+            requiredFields:["nick","mail","link"]
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#string"><span class="mr-2">1</span><span>string</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#不可变性"><span class="mr-2">1.1</span><span>不可变性</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#原因"><span class="mr-2">1.1.1</span><span>原因</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#长度限制"><span class="mr-2">1.2</span><span>长度限制</span></a></li><li><a class="is-flex is-mobile" href="#三种常量池区分"><span class="mr-2">1.3</span><span>三种常量池区分</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#全局常量池"><span class="mr-2">1.3.1</span><span>全局常量池</span></a></li><li><a class="is-flex is-mobile" href="#class文件常量池"><span class="mr-2">1.3.2</span><span>class文件常量池</span></a></li><li><a class="is-flex is-mobile" href="#运行时常量池"><span class="mr-2">1.3.3</span><span>运行时常量池</span></a></li><li><a class="is-flex is-mobile" href="#总结"><span class="mr-2">1.3.4</span><span>总结</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#substring"><span class="mr-2">1.4</span><span>substring</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#jdk6"><span class="mr-2">1.4.1</span><span>jdk6</span></a></li><li><a class="is-flex is-mobile" href="#jdk7"><span class="mr-2">1.4.2</span><span>jdk7</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#replaceFirst、replaceAll、replace区别"><span class="mr-2">1.5</span><span>replaceFirst、replaceAll、replace区别</span></a></li><li><a class="is-flex is-mobile" href="#String、StringBuilder和StingBuffer之间的区别与联系"><span class="mr-2">1.6</span><span>String、StringBuilder和StingBuffer之间的区别与联系</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#StringBuilder"><span class="mr-2">1.6.1</span><span>StringBuilder</span></a></li><li><a class="is-flex is-mobile" href="#StingBuffer"><span class="mr-2">1.6.2</span><span>StingBuffer</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#String对“-”的重载"><span class="mr-2">1.7</span><span>String对“+”的重载</span></a></li><li><a class="is-flex is-mobile" href="#String-valueOf和Integer-toString的区别"><span class="mr-2">1.8</span><span>String.valueOf和Integer.toString的区别</span></a></li><li><a class="is-flex is-mobile" href="#switch对String的支持"><span class="mr-2">1.9</span><span>switch对String的支持</span></a></li><li><a class="is-flex is-mobile" href="#字符串池"><span class="mr-2">1.10</span><span>字符串池</span></a></li><li><a class="is-flex is-mobile" href="#intern"><span class="mr-2">1.11</span><span>intern</span></a></li><li><a class="is-flex is-mobile" href="#String比较特别的地方"><span class="mr-2">1.12</span><span>String比较特别的地方</span></a></li><li><a class="is-flex is-mobile" href="#转换为String的三种方式"><span class="mr-2">1.13</span><span>转换为String的三种方式</span></a></li></ul></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="流殃的博客" height="28"></a><p class="size-small"><span>&copy; 2021 流殃</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2020/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
+
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
+
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
+
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
+        
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('jadncKpLE7wt7lfl6a2OJub6-9Nh9j0Va','DDgwN2gmiGGXUYEDLSlPhI1a','殃の酱','undefined',true);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
